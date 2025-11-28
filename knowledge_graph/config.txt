@@ -1,0 +1,3 @@
+URI=neo4j+ssc://5a20b992.databases.neo4j.io:7687
+USERNAME=neo4j
+PASSWORD=acvIis0oN8o_KHkKVyaaJUNWqpamMf04NUM_uep81qk

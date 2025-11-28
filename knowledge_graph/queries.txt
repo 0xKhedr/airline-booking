@@ -1,0 +1,33 @@
+MATCH (f:Flight)-[:DEPARTS_FROM]->(o:Airport),
+      (f)-[:ARRIVES_AT]->(d:Airport)
+WITH o.station_code AS origin, d.station_code AS destination, COUNT(f) AS flight_count
+ORDER BY flight_count DESC
+LIMIT 5
+RETURN origin, destination, flight_count;
+
+MATCH (p:Passenger)-[:TOOK]->(j:Journey)-[:ON]->(f:Flight)
+WITH f.flight_number AS flight_id, COUNT(p) AS passenger_count
+ORDER BY passenger_count DESC
+LIMIT 10
+RETURN flight_id, passenger_count;
+
+MATCH (p:Passenger)-[:TOOK]->(j:Journey)-[:ON]->(f:Flight)
+WHERE j.number_of_legs > 1
+WITH p.generation AS generation,
+     COUNT(DISTINCT j.feedback_ID) AS multi_leg_count,
+     AVG(j.food_satisfaction_score) AS avg_score
+ORDER BY multi_leg_count DESC
+RETURN generation, multi_leg_count, avg_score;
+
+MATCH (p:Passenger)-[:TOOK]->(j:Journey)-[:ON]->(f:Flight)
+WITH f.flight_number AS flight_id,
+     AVG(j.arrival_delay_minutes) AS avg_arrival_delay
+ORDER BY avg_arrival_delay ASC
+LIMIT 10
+RETURN flight_id, avg_arrival_delay;
+
+MATCH (p:Passenger)-[:TOOK]->(j:Journey)
+WITH p.loyalty_program_level AS loyalty_level,
+     AVG(j.actual_flown_miles) AS avg_actual_flown_miles
+ORDER BY avg_actual_flown_miles DESC
+RETURN loyalty_level, avg_actual_flown_miles;

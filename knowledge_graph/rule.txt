@@ -1,0 +1,22 @@
+MATCH (p:Passenger)-[:TOOK]->(j:Journey)
+WITH p.record_locator AS passenger_id,
+     AVG(
+        0.5  * j.food_satisfaction_score +
+        0.35 * (5 - CASE 
+                    WHEN abs(j.arrival_delay_minutes)/20 > 5 THEN 5
+                    WHEN abs(j.arrival_delay_minutes)/20 < 0 THEN 0
+                    ELSE round(abs(j.arrival_delay_minutes)/20, 1)
+                  END) +
+        0.1  * (5 - CASE
+                    WHEN j.number_of_legs * 1.5 > 5 THEN 5
+                    WHEN j.number_of_legs * 1.5 < 0 THEN 0
+                    ELSE round(j.number_of_legs * 1.5, 1)
+                  END) +
+        0.05 * (5 - CASE
+                    WHEN j.actual_flown_miles/3000 > 5 THEN 5
+                    WHEN j.actual_flown_miles/3000 < 0 THEN 0
+                    ELSE round(j.actual_flown_miles/3000, 1)
+                  END)
+     ) AS overall_satisfaction_score
+WHERE overall_satisfaction_score > 3
+RETURN COUNT(passenger_id) AS high_satisfaction_passengers;
