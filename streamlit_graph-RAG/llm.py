@@ -8,10 +8,10 @@ LLM_MODELS = {
     'qwen': 'Qwen/Qwen3-4B-Instruct-2507',
     'openai': 'openai/gpt-oss-20b',
     'google': 'google/gemma-2-2b-it',
-    'meta': 'meta-llama/Llama-3.1-8B'
+    'meta': 'meta-llama/Llama-3.2-1B-Instruct'
 }
 
-def chat(prompt: str, model: str = 'deepseek', max_tokens: int = 256, temperature: float = 0.2) -> str:
+def chat(prompt: str, model: str = 'deepseek', max_tokens: int = 1024, temperature: float = 0.0) -> str:
     response = InferenceClient(token=CONFIG.get('HUGGINGFACE_TOKEN'), model=LLM_MODELS.get(model)).chat_completion(
         messages=[{'role': 'user', 'content': prompt}],
         max_tokens=max_tokens,
@@ -90,7 +90,7 @@ ONLY IF:
 Do NOT invent facts.
 Do NOT require additional attributes (such as airport codes) if the question is already constrained by the query.
 
-CONTEXT:
+FILTERED, RELEVANT CONTEXT, NOT THE WHOLE DATA:
 {context}
 
 QUESTION:

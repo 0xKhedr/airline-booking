@@ -35,7 +35,7 @@ if st.button("Ask") and question.strip():
     context_text = '\n'.join([str(x) for x in context_items])
 
 
-    answer = chat(ANSWER_QUERY.format(context=context_text, query=question), model=llm_model_key, max_tokens=512)
+    answer = chat(ANSWER_QUERY.format(context=context_text, query=question), model=llm_model_key, temperature=0.5)
 
 
     st.subheader("LLM Answer")
