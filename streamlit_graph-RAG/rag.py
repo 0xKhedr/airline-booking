@@ -1,9 +1,7 @@
 from config import CONFIG
 from embedding import EMBEDDING_MODELS
-import numpy as np
 from sentence_transformers import SentenceTransformer
 from neo4j import GraphDatabase
-import faiss
 
 
 

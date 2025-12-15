@@ -27,7 +27,7 @@ if st.button("Ask") and question.strip():
 
     
     embedding_model = embedding_mode if embedding_mode != 'off' else None
-    results = retrieve(intent=intent, entities=entities, query=question, embedder=embedding_model)
+    results = retrieve(intent=intent, entities=entities, query=question, embedder=embedding_model, top_k=entities.get('limit', 5))
 
     # Display results side by side
     col1, col2 = st.columns(2)
