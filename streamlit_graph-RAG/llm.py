@@ -39,7 +39,7 @@ Output only the intent name, nothing else.
 
 Examples:
 Input: "Which flights from JFK to LAX have the most delays?" → most_delayed_flights
-Input: "What classes are available on flight AA123?" → flight_classes_offered
+Input: "What classes are available on flight 2400?" → flight_classes_offered
 Input: "Show me the busiest airports" → popular_airports
 
 Now classify: {query}
@@ -51,18 +51,18 @@ Extract parameters for this intent: {intent}
 Extract these parameters from the question:
 - origin: 3-letter airport code or null
 - destination: 3-letter airport code or null  
-- flight_number: alphanumeric flight number or null
+- flight_number: integer flight number or null (extract only the numeric part)
 - code: airport code for dominant_generation_airport or null
-- limit: integer (default 10)
+- limit: integer (default 5)
 
 Output only valid JSON in this exact format:
-{{"origin": "CODE_OR_NULL", "destination": "CODE_OR_NULL", "flight_number": "NUMBER_OR_NULL", "code": "CODE_OR_NULL", "limit": NUMBER}}
+{{"origin": "CODE_OR_NULL", "destination": "CODE_OR_NULL", "flight_number": NUMBER_OR_NULL, "code": "CODE_OR_NULL", "limit": NUMBER}}
 
 Examples:
-Intent: most_delayed_flights, Question: "Top 5 delayed flights from JFK to LAX" → {{"origin": "JFK", "destination": "LAX", "flight_number": null, "code": null, "limit": 5}}
-Intent: flight_classes_offered, Question: "Classes on flight UA123" → {{"origin": null, "destination": null, "flight_number": "UA123", "code": null, "limit": 10}}
-Intent: popular_airports, Question: "Busiest airports" → {{"origin": null, "destination": null, "flight_number": null, "code": null, "limit": 10}}
-Intent: dominant_generation_airport, Question: "Main generation at LAX" → {{"origin": null, "destination": null, "flight_number": null, "code": "LAX", "limit": 10}}
+Intent: most_delayed_flights, Question: "Top 10 delayed flights from JFK to LAX" → {{"origin": "JFK", "destination": "LAX", "flight_number": null, "code": null, "limit": 10}}
+Intent: flight_classes_offered, Question: "Classes on flight UA123" → {{"origin": null, "destination": null, "flight_number": 123, "code": null, "limit": 5}}
+Intent: popular_airports, Question: "Busiest airports" → {{"origin": null, "destination": null, "flight_number": null, "code": null, "limit": 5}}
+Intent: dominant_generation_airport, Question: "Main generation at LAX" → {{"origin": null, "destination": null, "flight_number": null, "code": "LAX", "limit": 5}}
 
 Now extract from: {query}
 '''
@@ -70,37 +70,44 @@ Now extract from: {query}
 ANSWER_QUERY = '''
 You are an Airline Graph-RAG Assistant.
 
-You MUST answer using ONLY the information in the CONTEXT.
+You MUST answer using ONLY the information in the CONTEXT sections below.
+
+CONTEXT STRUCTURE:
+1. BASELINE CONTEXT: Statistical aggregations and query-specific results (e.g., averages, counts, rankings)
+2. EMBEDDING CONTEXT: Semantically similar individual journey examples from vector search
 
 IMPORTANT RULES:
-- The CONTEXT may contain results that were already filtered by the KG query.
-- If the CONTEXT lists flights or values, you MUST assume they satisfy the constraints of the QUESTION
-  (e.g., origin, destination, class, date), even if those constraints are not repeated in each row.
-- Returned rows themselves are factual evidence.
-
-You MUST answer the question IF:
-- The CONTEXT contains one or more rows relevant to the QUESTION.
+- Prioritize BASELINE CONTEXT for direct answers to the question's intent
+- Use EMBEDDING CONTEXT to provide concrete examples, additional context, or when baseline is insufficient
+- Both contexts were already filtered by the query - assume they satisfy the question's constraints
+- Combine insights from both contexts for a comprehensive answer
+- If baseline provides statistics, use embedding examples to illustrate them
+- Returned rows are factual evidence
 
 You MUST respond exactly with:
 "The KG does not contain the answer."
 ONLY IF:
-- The CONTEXT is empty, OR
-- The CONTEXT contains no rows relevant to the QUESTION.
+- Both contexts are empty or contain only errors/messages
 
 Do NOT invent facts.
-Do NOT require additional attributes (such as airport codes) if the question is already constrained by the query.
+Do NOT contradict the provided data.
 
-FILTERED, RELEVANT CONTEXT, NOT THE WHOLE DATA:
-{context}
+BASELINE CONTEXT (Query-specific results with statistics and example_journeys):
+{baseline_context}
+
+EMBEDDING CONTEXT (Semantically similar journeys with similarity scores):
+{embedding_context}
 
 QUESTION:
 {query}
 
 TASK:
-Answer concisely.
-For ranking or comparison questions (e.g., least crowded),
-use the provided numeric values to determine the answer.
-Refer to flight numbers when available.
+Provide a comprehensive, conversational answer that:
+1. Directly answers the question using baseline statistics/results
+2. Enriches the answer with embedding examples when available
+3. References specific flight numbers, routes, and metrics
+4. For ranking questions, use the provided numeric values
+5. Maintains consistency between both contexts
 '''
 
 

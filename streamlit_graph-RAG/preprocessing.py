@@ -16,12 +16,19 @@ def classify_intent(query: str, model: str) -> str:
 def extract_entities(intent: str, query: str, model: str) -> dict:
     response = chat(ENTITIES_QUERY.format(intent=intent.strip(), query=query), model)
     
+    entities = {}
     if json_match := re.search(r'[\{\[].*[\}\]]', response, re.DOTALL):
-        try: return json.loads(json_match.group(0))
+        try: entities = json.loads(json_match.group(0))
         except json.JSONDecodeError: pass
     else:
-        try: return json.loads(response)
+        try: entities = json.loads(response)
         except json.JSONDecodeError as e: return {'error': f"Failed to parse JSON: {str(e)}", 'raw_response': response}
+    
+    if entities.get('flight_number'):
+        try: entities['flight_number'] = int(entities['flight_number'])
+        except (ValueError, TypeError): pass
+    
+    return entities
 
 
 
