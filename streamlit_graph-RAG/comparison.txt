@@ -1,0 +1,387 @@
+Starting model comparison...
+
+================================================================================
+AIRLINE GRAPH-RAG MODEL COMPARISON
+Timestamp: 2025-12-16 12:50:28
+Models: qwen, openai, meta
+Test Cases: 5
+================================================================================
+
+────────────────────────────────────────────────────────────────────────────────
+TEST CASE 1: Flight delay analysis on a specific route
+Query: "Which flights from LAX to IAX have the most delays?"
+Expected Intent: most_delayed_flights
+────────────────────────────────────────────────────────────────────────────────
+
+  Running with QWEN...
+    ✓ Success
+    Intent: most_delayed_flights (correct: True)
+    Entities: {'origin': 'LAX', 'destination': 'IAX', 'flight_number': None, 'code': None, 'limit': 5} (correct: True)
+    Times: Intent=2.05s, Entities=1.26s, Retrieval=1.45s, Answer=2.65s
+    Total Time: 7.41s
+    Answer Length: 607 chars (~151 tokens)
+    Waiting 15 seconds before next model...
+
+
+  Running with OPENAI...
+    ✓ Success
+    Intent: most_delayed_flights (correct: True)
+    Entities: {'origin': 'LAX', 'destination': 'IAX', 'flight_number': None, 'code': None, 'limit': 5} (correct: True)
+    Times: Intent=0.56s, Entities=0.51s, Retrieval=0.20s, Answer=0.82s
+    Total Time: 2.10s
+    Answer Length: 459 chars (~114 tokens)
+    Waiting 15 seconds before next model...
+
+
+  Running with META...
+    ✓ Success
+    Intent: most_delayed_flights (correct: True)
+    Entities: {'origin': 'LAX', 'destination': 'IAX', 'flight_number': None, 'code': None, 'limit': 5} (correct: True)
+    Times: Intent=0.97s, Entities=1.43s, Retrieval=0.51s, Answer=0.76s
+    Total Time: 3.68s
+    Answer Length: 103 chars (~25 tokens)
+    Waiting 15 seconds before next model...
+
+
+────────────────────────────────────────────────────────────────────────────────
+TEST CASE 2: Passenger crowd analysis on a route
+Query: "What are the least crowded flights from ORX to IAX?"
+Expected Intent: least_crowded_flights
+────────────────────────────────────────────────────────────────────────────────
+
+  Running with QWEN...
+    ✓ Success
+    Intent: least_crowded_flights (correct: True)
+    Entities: {'origin': 'ORX', 'destination': 'IAX', 'flight_number': None, 'code': None, 'limit': 5} (correct: True)
+    Times: Intent=1.11s, Entities=1.34s, Retrieval=0.61s, Answer=2.97s
+    Total Time: 6.03s
+    Answer Length: 831 chars (~207 tokens)
+    Waiting 15 seconds before next model...
+
+
+  Running with OPENAI...
+    ✓ Success
+    Intent: least_crowded_flights (correct: True)
+    Entities: {'origin': 'ORX', 'destination': 'IAX', 'flight_number': None, 'code': None, 'limit': 5} (correct: True)
+    Times: Intent=0.36s, Entities=0.41s, Retrieval=0.72s, Answer=0.71s
+    Total Time: 2.20s
+    Answer Length: 318 chars (~79 tokens)
+    Waiting 15 seconds before next model...
+
+
+  Running with META...
+    ✓ Success
+    Intent: least_crowded_flights (correct: True)
+    Entities: {} (correct: False)
+    Times: Intent=0.76s, Entities=1.44s, Retrieval=0.89s, Answer=1.78s
+    Total Time: 4.86s
+    Answer Length: 1348 chars (~337 tokens)
+    Waiting 15 seconds before next model...
+
+
+────────────────────────────────────────────────────────────────────────────────
+TEST CASE 3: Food satisfaction ranking
+Query: "Show me the top 3 routes with the worst food"
+Expected Intent: worst_food_routes
+────────────────────────────────────────────────────────────────────────────────
+
+  Running with QWEN...
+    ✓ Success
+    Intent: worst_food_routes (correct: True)
+    Entities: {'origin': None, 'destination': None, 'flight_number': None, 'code': None, 'limit': 3} (correct: True)
+    Times: Intent=0.79s, Entities=1.29s, Retrieval=0.62s, Answer=2.77s
+    Total Time: 5.48s
+    Answer Length: 409 chars (~102 tokens)
+    Waiting 15 seconds before next model...
+
+
+  Running with OPENAI...
+    ✓ Success
+    Intent: worst_food_routes (correct: True)
+    Entities: {'origin': None, 'destination': None, 'flight_number': None, 'code': None, 'limit': 3} (correct: True)
+    Times: Intent=0.34s, Entities=0.39s, Retrieval=0.65s, Answer=0.62s
+    Total Time: 1.99s
+    Answer Length: 453 chars (~113 tokens)
+    Waiting 15 seconds before next model...
+
+
+  Running with META...
+    ✓ Success
+    Intent: most_delayed_flights (correct: False)
+    Entities: {} (correct: False)
+    Times: Intent=0.75s, Entities=1.97s, Retrieval=0.80s, Answer=0.70s
+    Total Time: 4.22s
+    Answer Length: 35 chars (~8 tokens)
+    Waiting 15 seconds before next model...
+
+
+────────────────────────────────────────────────────────────────────────────────
+TEST CASE 4: Airport popularity ranking
+Query: "What are the most popular airports?"
+Expected Intent: popular_airports
+────────────────────────────────────────────────────────────────────────────────
+
+  Running with QWEN...
+    ✓ Success
+    Intent: popular_airports (correct: True)
+    Entities: {'origin': None, 'destination': None, 'flight_number': None, 'code': None, 'limit': 5} (correct: True)
+    Times: Intent=0.98s, Entities=1.33s, Retrieval=0.60s, Answer=4.62s
+    Total Time: 7.53s
+    Answer Length: 835 chars (~208 tokens)
+    Waiting 15 seconds before next model...
+
+
+  Running with OPENAI...
+    ✓ Success
+    Intent: popular_airports (correct: True)
+    Entities: {'origin': None, 'destination': None, 'flight_number': None, 'code': None, 'limit': 5} (correct: True)
+    Times: Intent=0.35s, Entities=0.40s, Retrieval=0.62s, Answer=0.72s
+    Total Time: 2.09s
+    Answer Length: 597 chars (~149 tokens)
+    Waiting 15 seconds before next model...
+
+
+  Running with META...
+    ✓ Success
+    Intent: most_popular_airports (correct: False)
+    Entities: {} (correct: False)
+    Times: Intent=0.87s, Entities=2.15s, Retrieval=0.00s, Answer=1.22s
+    Total Time: 4.23s
+    Answer Length: 640 chars (~160 tokens)
+    Waiting 15 seconds before next model...
+
+
+────────────────────────────────────────────────────────────────────────────────
+TEST CASE 5: Flight class information lookup
+Query: "What classes are available on flight 2411?"
+Expected Intent: flight_classes_offered
+────────────────────────────────────────────────────────────────────────────────
+
+  Running with QWEN...
+    ✓ Success
+    Intent: flight_classes_offered (correct: True)
+    Entities: {'origin': None, 'destination': None, 'flight_number': 2411, 'code': None, 'limit': 5} (correct: True)
+    Times: Intent=1.17s, Entities=1.29s, Retrieval=0.76s, Answer=1.23s
+    Total Time: 4.44s
+    Answer Length: 46 chars (~11 tokens)
+    Waiting 15 seconds before next model...
+
+
+  Running with OPENAI...
+    ✓ Success
+    Intent: flight_classes_offered (correct: True)
+    Entities: {'origin': None, 'destination': None, 'flight_number': 2411, 'code': None, 'limit': 5} (correct: True)
+    Times: Intent=0.46s, Entities=0.41s, Retrieval=0.70s, Answer=0.32s
+    Total Time: 1.89s
+    Answer Length: 49 chars (~12 tokens)
+    Waiting 15 seconds before next model...
+
+
+  Running with META...
+    ✗ Failed: 402 Client Error: Payment Required for url: https://router.huggingface.co/novita/v3/openai/chat/completions (Request ID: Root=1-69413a81-741c620f440246006fcbd182;63872bdc-e7d6-4e61-beca-aa50607d4ded)
+
+You have reached the free monthly usage limit for novita. Subscribe to PRO to get 20x more included usage, or add pre-paid credits to your account.        
+    Waiting 15 seconds before next model...
+
+
+================================================================================
+QUANTITATIVE SUMMARY
+================================================================================
+
+Model        Success    Intent Acc   Entity Acc   Avg Time     Avg Tokens
+------------------------------------------------------------------------
+qwen         5/5        5/5          5/5          6.18s        135
+openai       5/5        5/5          5/5          2.05s        93
+meta         4/5        2/5          1/5          4.25s        132
+
+================================================================================
+DETAILED TIMING BREAKDOWN
+================================================================================
+
+Model        Intent       Entities     Answer       Total
+------------------------------------------------------------
+qwen         1.22s       1.30s       2.85s       6.18s
+openai       0.41s       0.42s       0.64s       2.05s
+meta         0.84s       1.75s       1.11s       4.25s
+
+================================================================================
+ANSWERS FOR QUALITATIVE EVALUATION
+================================================================================
+
+────────────────────────────────────────────────────────────────────────────────
+TEST CASE 1: Which flights from LAX to IAX have the most delays?
+────────────────────────────────────────────────────────────────────────────────
+
+[QWEN]
+Answer: The flight from LAX to IAX with the most delays is flight **1636**, with an average delay of **15.67 minutes** across 3 samples. This is the highest average delay among the listed flights.
+
+Other flights for comparison:
+- Flight 1962: 8.0 minutes average delay
+- Flight 388: 6.33 minutes average delay
+- Flight 784: 5.0 minutes average delay
+- Flight 2300: 2.0 minutes average delay
+
+Note: While individual journeys may have delays as high as 40 minutes (e.g., flight 1636, journey F_2510), the average delay is what determines the ranking for "most delays." Flight 1636 has the highest average.
+
+
+[OPENAI]
+Answer: The LAX‑to‑IAX flights with the biggest delays (by average minutes) are:
+
+| Flight | Avg. delay | # samples | Example journey delays |
+|--------|------------|-----------|------------------------|
+| **1636** | **≈ 15.7 min** | 3 | 10, –3, 40 |
+| 1962 | 8.0 min | 1 | 8 |
+| 388 | 6.3 min | 3 | –13, –22, 54 |
+| 784 | 5.0 min | 1 | 5 |
+| 2300 | 2.0 min | 1 | 2 |
+
+So flight 1636 tops the list with the largest average delay, followed by 1962, 388, 784, and 2300.
+
+
+[META]
+Answer: The KG does not contain the answer.
+
+BASELINE CONTEXT says "No matching data" or "No baseline results".
+
+
+────────────────────────────────────────────────────────────────────────────────
+TEST CASE 2: What are the least crowded flights from ORX to IAX?
+────────────────────────────────────────────────────────────────────────────────
+
+[QWEN]
+Answer: The least crowded flights from ORX to IAX are those with the fewest passengers, but since all flights in the baseline context have 1 passenger, crowding is equal across all flights. However, based on flight metrics, the flight with the shortest distance (589 miles) and minimal delay is likely to be the most efficient and possibly less crowded in terms of operational load.
+
+The flight with the shortest distance and the smallest delay is **Flight 2171**, which operates from ORX to IAX with a 17-minute delay, an A320-200 aircraft, and 589 miles. It has the lowest mileage compared to others (925 miles), suggesting it may be less demanding in terms of route complexity and potentially less crowded in operational terms.
+
+Thus, **Flight 2171 (ORX to IAX)** is the least crowded based on route distance and operational efficiency.
+
+
+[OPENAI]
+Answer: The least crowded options from ORX to IAX are:
+
+- **Flight 612** – departs ORX, arrives early (‑16 min) on a B737‑900.
+- **Flight 2289** – departs ORX, arrives early (‑22 min) on a B757‑300.
+
+Both flights have only one passenger in the example data and arrive ahead of schedule, which usually indicates a lighter load.
+
+
+[META]
+Answer: The KG does not contain the answer.
+
+BASELINE CONTEXT (Pre-filtered answer to the question): {'error': 'Query failed: {neo4j_code: Neo.ClientError.Statement.ParameterMissing} {message: Expected parameter(s): origin, destination, limit} {gql_status: 42001} {gql_status_description: error: syntax error or access rule violation - invalid syntax}'}  
+
+Since the baseline context contains error messages, we should ignore it and focus on the data provided.
+
+EMBEDDING CONTEXT (Supplementary examples): No embedding results.
+
+We don't have any additional journey examples from EMBEDDING CONTEXT to refer to. However, we can still answer the question using the baseline results.    
+
+To find the least crowded flights from ORX to IAX, we need to look at the flight statistics and routes. Let's take a look at the baseline results:
+
+* The least crowded flights might be those with the lowest number of passengers or the fewest number of flights.
+* We can also consider flights with the shortest routes or those that have fewer stops.
+
+Unfortunately, we don't have enough information to provide a specific answer. However, we can suggest that you check the flight statistics and routes for the ORX to IAX flights to find the least crowded ones.
+
+If you need more information or would like to narrow down the search, feel free to ask, and I'll do my best to help!
+
+
+────────────────────────────────────────────────────────────────────────────────
+TEST CASE 3: Show me the top 3 routes with the worst food
+────────────────────────────────────────────────────────────────────────────────
+
+[QWEN]
+Answer: The top 3 routes with the worst food (rated 1.0 out of 5) are:
+
+1. **SBX to LAX** – Flight 5898 (ERJ-175, Economy), 156 miles, delayed by 16 minutes
+2. **HNX to LAX** – Flight 1222 (B737-800, Economy), 2,556 miles, delayed by 25 minutes
+3. **DEX to LAX** – Flight 404 (B757-300, Economy), 862 miles, delayed by 9 minutes
+
+All routes have an average food rating of 1.0, indicating the worst food quality.
+
+
+[OPENAI]
+Answer: Here are the three routes that have the lowest (worst) food scores:
+
+| Route | Flight | Avg. Food Score | Sample Journey |
+|-------|--------|-----------------|----------------|
+| **SBX → LAX** | 5898 | 1.0 | 16 min early, ERJ‑175, Economy, 156 mi |
+| **HNX → LAX** | 1222 | 1.0 | 25 min early, B737‑800, Economy, 2 556 mi |
+| **DEX → LAX** | 404 | 1.0 | 9 min early, B757‑300, Economy, 862 mi |
+
+All three routes share the same lowest food score of 1.0.
+
+
+[META]
+Answer: The KG does not contain the answer.
+
+
+────────────────────────────────────────────────────────────────────────────────
+TEST CASE 4: What are the most popular airports?
+────────────────────────────────────────────────────────────────────────────────
+
+[QWEN]
+Answer: The most popular airports, based on journey volume, are:
+
+- **EWX**: 364 journeys
+  Example flights: Flight 659 (177-minute delay, B737-MAX8, 1,400 miles), Flight 2633 (5-minute delay, B777-300, 2,565 miles)
+
+- **IAX**: 359 journeys
+  Example flights: Flight 1949 (1-minute delay, B777-200, 1,635 miles), Flight 1922 (9-minute delay, B737-800, 1,303 miles)
+
+- **DEX**: 264 journeys
+  Example flights: Flight 2614 (17-minute delay, B737-900, 1,605 miles), Flight 5372 (14-minute delay, ERJ-175, 641 miles)
+
+- **ORX**: 256 journeys
+  Example flights: Flight 2171 (28-minute delay, A320-200, 589 miles), Flight 4630 (8-minute delay, ERJ-175, 1,648 miles)
+
+- **SFX**: 224 journeys
+  Example flights: Flight 1870 (11-minute delay, B777-300, 2,419 miles)
+
+EWX has the highest number of journeys, making it the most popular airport.
+
+
+[OPENAI]
+Answer: **Most popular airports (by number of journeys)**
+
+| Rank | Airport | Journeys | Example flights |
+|------|---------|----------|-----------------|
+| 1 | **EWX** | 364 | Flight 659 (B737‑MAX8, 1400 mi, 177 min delay) |
+| 2 | **IAX** | 359 | Flight 1949 (B777‑200, 1635 mi, –1 min delay) |
+| 3 | **DEX** | 264 | Flight 2614 (B737‑900, 1605 mi, –17 min delay) |
+| 4 | **ORX** | 256 | Flight 2171 (A320‑200, 589 mi, 28 min delay) |
+| 5 | **SFX** | 224 | Flight 1870 (B777‑300, 2419 mi, –11 min delay) |
+
+These airports lead the list in terms of recorded journeys, with EWX and IAX being the top two.
+
+
+[META]
+Answer: The KG does not contain the answer.
+
+BASELINE CONTEXT (Pre-filtered answer to the question): {'message': "No specific query template for intent 'most_popular_airports'. Please rephrase your question."}
+
+Since the baseline context does not contain valid data, I will not use it to answer the question. The baseline results are already ranked/filtered - trust the ordering and values provided.
+
+There are no additional journey examples in the EMBEDDING CONTEXT, so I will not use it as a supplementary example. For ranking questions (least/most/top), the baseline results are already in the correct order.
+
+The KG does not contain the answer.
+
+
+────────────────────────────────────────────────────────────────────────────────
+TEST CASE 5: What classes are available on flight 2411?
+────────────────────────────────────────────────────────────────────────────────
+
+[QWEN]
+Answer: The class available on flight 2411 is Economy.
+
+
+[OPENAI]
+Answer: Flight 2411 (LAX → IAX) offers **Economy** class.
+
+
+[META]
+ERROR: 402 Client Error: Payment Required for url: https://router.huggingface.co/novita/v3/openai/chat/completions (Request ID: Root=1-69413a81-741c620f440246006fcbd182;63872bdc-e7d6-4e61-beca-aa50607d4ded)
+
+You have reached the free monthly usage limit for novita. Subscribe to PRO to get 20x more included usage, or add pre-paid credits to your account.
+
+The fact that META failed the last test will be ignored and statistics and answers (completed ones) will stand
